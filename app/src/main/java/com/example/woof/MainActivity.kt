@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -59,21 +60,23 @@ fun WoofApp() {
                 text = "Woof",
                 fontFamily = FontFamily(Font(R.font.abrilfatface_regular)),
                 fontSize = 24.sp,
-
+                fontWeight = FontWeight.Bold
             )
         }
 
         // Liste des chiens
         val dogList = listOf(
-            Dog("Koda", "About", "2 years old", R.drawable.koda, "Editing treats on the terrace"),
-            Dog("Lola","About", "16 years old", R.drawable.lola, "Barking at Daddy"),
-            Dog("Frankie","About", "2 years old", R.drawable.frankie, ""),
-            Dog("Nox", "About","8 years old", R.drawable.nox, ""),
-            Dog("Faye", "About","8 years old", R.drawable.faye, ""),
-            Dog("Bella", "About","14 years old", R.drawable.bella, "")
+            Dog("Koda", "2 years old", "About", R.drawable.koda, "Editing treats on the terrace"),
+            Dog("Lola", "16 years old", "About", R.drawable.lola, "Barking at Daddy"),
+            Dog("Frankie", "2 years old", "", R.drawable.frankie, ""),
+            Dog("Nox", "8 years old", "", R.drawable.nox, ""),
+            Dog("Faye", "8 years old", "", R.drawable.faye, ""),
+            Dog("Bella", "14 years old", "", R.drawable.bella, "")
         )
 
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp) // Ajouter un espacement entre les éléments
+        ) {
             itemsIndexed(dogList) { index, dog ->
                 DogItem(dog = dog, index = index)
             }
@@ -83,27 +86,25 @@ fun WoofApp() {
 
 @Composable
 fun DogItem(dog: Dog, index: Int) {
-    val cardHeight = if (index < 2) 120.dp else 80.dp
+    val cardHeight = if (index < 2) 140.dp else 120 .dp
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .height(cardHeight)
-    )
-    {
+            .fillMaxWidth(0.9f) 
+            .padding(horizontal = 16.dp, vertical = 4.dp)  
+            .height(cardHeight),
+        colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.2f)) 
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(25.dp),
-            verticalAlignment = Alignment.CenterVertically,
+                .padding(16.dp), // Ajuster le padding pour aligner les éléments
+            verticalAlignment = Alignment.Top, // Aligner les éléments en haut
             horizontalArrangement = Arrangement.Start
-        )
-        {
+        ) {
             Box(
                 modifier = Modifier
                     .size(50.dp)
                     .clip(CircleShape)
-
             ) {
                 Image(
                     painter = painterResource(id = dog.imageRes),
@@ -111,6 +112,7 @@ fun DogItem(dog: Dog, index: Int) {
                     modifier = Modifier.fillMaxSize()
                 )
             }
+            Spacer(modifier = Modifier.width(16.dp)) // Ajouter un espace entre l'image et le texte
             Column(
                 modifier = Modifier.weight(1f)
             ) {
@@ -118,13 +120,7 @@ fun DogItem(dog: Dog, index: Int) {
                     text = dog.name,
                     fontFamily = FontFamily(Font(R.font.montserrat_bold)),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-                Text(
-                    text = dog.about2,
-                    fontFamily = FontFamily(Font(R.font.montserrat_bold)),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
+                    fontSize = 20.sp
                 )
                 Text(
                     text = dog.age,
@@ -135,15 +131,14 @@ fun DogItem(dog: Dog, index: Int) {
                 Text(
                     text = dog.about,
                     fontFamily = FontFamily(Font(R.font.montserrat_regular)),
-                    fontSize = 14.sp
+                    fontSize = 12.sp
                 )
             }
-
         }
     }
 }
 
-data class Dog(val name: String, val about2: String, val age: String, val imageRes: Int, val about: String)
+data class Dog(val name: String, val age: String, val about2: String, val imageRes: Int, val about: String)
 
 @Preview(showBackground = true)
 @Composable
