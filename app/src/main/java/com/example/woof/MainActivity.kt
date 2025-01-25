@@ -97,7 +97,7 @@ fun DogItem(dog: Dog, index: Int) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp), // Ajuster le padding pour aligner les éléments
+                .padding(16.dp),
             verticalAlignment = Alignment.Top, // Aligner les éléments en haut
             horizontalArrangement = Arrangement.Start
         ) {
@@ -120,7 +120,7 @@ fun DogItem(dog: Dog, index: Int) {
                     text = dog.name,
                     fontFamily = FontFamily(Font(R.font.montserrat_bold)),
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 21.sp
                 )
 
                 Text(
