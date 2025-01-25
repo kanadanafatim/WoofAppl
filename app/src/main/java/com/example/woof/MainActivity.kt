@@ -81,15 +81,15 @@ fun WoofApp() {
                 DogItem(dog = dog, index = index)
             }
         }
-    }
+   }
 }
 
 @Composable
 fun DogItem(dog: Dog, index: Int) {
-    val cardHeight = if (index < 2) 140.dp else 120 .dp
+    val cardHeight = if (index < 2) 140.dp else 90.dp
     Card(
         modifier = Modifier
-            .fillMaxWidth(0.9f) 
+
             .padding(horizontal = 16.dp, vertical = 4.dp)  
             .height(cardHeight),
         colors = CardDefaults.cardColors(containerColor = Color.Gray.copy(alpha = 0.2f)) 
@@ -122,11 +122,18 @@ fun DogItem(dog: Dog, index: Int) {
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
+
                 Text(
                     text = dog.age,
                     fontFamily = FontFamily(Font(R.font.montserrat_regular)),
                     fontStyle = FontStyle.Italic,
                     fontSize = 12.sp
+                )
+                Text(
+                        text = dog.about2,
+                fontFamily = FontFamily(Font(R.font.montserrat_bold)),
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
                 )
                 Text(
                     text = dog.about,
